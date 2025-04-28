@@ -57,7 +57,7 @@ export const DeleteProductDialog = ({productId, open, setOpen}: DeleteProps) => 
                 </AlertDialogHeader>
 
                 <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
                     <AlertDialogAction 
                         disabled={isDeleting}
                         onClick={handleContinueClick}

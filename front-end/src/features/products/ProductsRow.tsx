@@ -1,5 +1,4 @@
 import { TableCell, TableRow } from "../../components/ui/table"
-import { Product } from "../../models/products";
 import { format } from 'date-fns';
 import { DeleteProductDialog } from "./DeleteProductDialog";
 import { CreateEditProduct } from "./CreateEditProduct";
@@ -15,10 +14,11 @@ import { useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Ellipsis } from 'lucide-react';
 import { Pencil, Trash2  } from 'lucide-react';
+import { ProductList } from "../../models/products";
 
 // Define the type for the row prop
 interface ProductRowProps {
-    row: Product
+    row: ProductList
 }
 
 export const ProductRow: React.FC<ProductRowProps> = ({row}) => {
@@ -95,4 +95,4 @@ export const ProductRow: React.FC<ProductRowProps> = ({row}) => {
             </TableRow>
         </>
     )
-}
+} 

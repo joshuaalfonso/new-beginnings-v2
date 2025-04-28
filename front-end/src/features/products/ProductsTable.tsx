@@ -38,9 +38,9 @@ export function ProductsTable() {
         
     return (
         <div className="space-y-4">
+            
             <div className="flex justify-between">
                 <Input placeholder="Search"  className="w-50"/>
-
                 <CreateEditProduct open={open} setOpen={setOpen}/>
             </div>
             

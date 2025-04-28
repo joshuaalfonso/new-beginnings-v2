@@ -26,6 +26,11 @@ const items = [
     url: "products",
     icon: ShoppingBasket,
   },
+  {
+    title: "Categories",
+    url: "categories",
+    icon: ShoppingBasket,
+  },
 ]
 
 export function AppSidebar() {

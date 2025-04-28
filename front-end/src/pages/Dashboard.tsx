@@ -4,9 +4,6 @@ import { ChartBar } from "../features/dashboard/BarChart"
 
 
 
-
-
-
 export function Dashboard() {
     return (
         <div>

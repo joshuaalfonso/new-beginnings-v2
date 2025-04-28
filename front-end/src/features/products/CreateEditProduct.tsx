@@ -10,16 +10,16 @@ import {
   DialogTrigger,
 } from "../../components/ui/dialog"
 import { ProductForm } from "./ProductsForm"
-import { Product } from "../../models/products"
+import { ProductList } from "../../models/products"
 
 
 interface CreateDeleteProps {
-    product?: Product,
+    product?: ProductList,
     open: boolean, 
     setOpen: (open: boolean) => void
 }
 
-export const CreateEditProduct = ({product = {} as Product, open, setOpen}: CreateDeleteProps) => {
+export const CreateEditProduct = ({product = {} as ProductList, open, setOpen}: CreateDeleteProps) => {
 
     const isEditMode = Boolean(product.productId);
 

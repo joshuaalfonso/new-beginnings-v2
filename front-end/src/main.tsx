@@ -6,6 +6,7 @@ import Layout from './App-Layout.tsx';
 import { NotFoundPage } from './pages/NotFoundPage.tsx';
 import { Dashboard } from './pages/Dashboard.tsx';
 import { Products } from './pages/Products.tsx';
+import { Categories } from './pages/Categories.tsx';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         path: 'products',
         element: <Products />
       },
+      {
+        path: 'categories',
+        element: <Categories />
+      }
     ]
   },
 ])
