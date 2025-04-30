@@ -1,4 +1,4 @@
-import { LayoutGrid, ShoppingBasket   } from "lucide-react"
+import { LayoutGrid, Tag, Shirt } from "lucide-react"
 
 import {
   Sidebar,
@@ -24,12 +24,12 @@ const items = [
   {
     title: "Products",
     url: "products",
-    icon: ShoppingBasket,
+    icon: Shirt,
   },
   {
     title: "Categories",
     url: "categories",
-    icon: ShoppingBasket,
+    icon: Tag,
   },
 ]
 

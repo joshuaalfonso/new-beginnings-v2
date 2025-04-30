@@ -17,7 +17,7 @@ products.get('/', async (c) => {
                 products AS p
             LEFT JOIN 
                 categories AS c
-            ON p.categoryId = c.categoryId
+            ON p.categoryId = c.categoryId 
         `
     )
     return c.json(rows)

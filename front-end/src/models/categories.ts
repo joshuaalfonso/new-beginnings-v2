@@ -4,5 +4,6 @@
 
 export interface CategoryList {
     categoryId: number,
-    categoryName: string
+    categoryName: string,
+    dateCreated: string
 }

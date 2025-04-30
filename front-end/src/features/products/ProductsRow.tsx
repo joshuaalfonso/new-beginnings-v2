@@ -18,10 +18,11 @@ import { ProductList } from "../../models/products";
 
 // Define the type for the row prop
 interface ProductRowProps {
-    row: ProductList
+    row: ProductList,
+    index: number
 }
 
-export const ProductRow: React.FC<ProductRowProps> = ({row}) => {
+export const ProductRow: React.FC<ProductRowProps> = ({row, index}) => {
 
     const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
     const [showDropdownMenu, setShowDropdownMenu] = useState<boolean>(false);
@@ -38,7 +39,8 @@ export const ProductRow: React.FC<ProductRowProps> = ({row}) => {
     return (
         <>
             <TableRow key={productId}>
-                <TableCell className="font-medium">{productName}</TableCell>
+                <TableCell className="font-medium">{index + 1}</TableCell>
+                <TableCell>{productName}</TableCell>
                 <TableCell>{productCategory}</TableCell>
                 <TableCell>{productDescription}</TableCell>
                 <TableCell className="text-right">

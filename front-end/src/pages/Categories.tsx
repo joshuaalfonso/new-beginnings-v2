@@ -1,3 +1,4 @@
+import { CategoriesTable } from "../features/categories/CategoriesTable"
 
 
 
@@ -6,7 +7,7 @@
 export const Categories = () => {
     return (
         <>
-            Categories works!
+            <CategoriesTable />
         </>
     )
 }
