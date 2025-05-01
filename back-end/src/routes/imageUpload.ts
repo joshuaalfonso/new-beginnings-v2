@@ -16,6 +16,7 @@ imageUpload.post('/', async (c) => {
     const buffer = await image.arrayBuffer();
 
     try {
+
       if (!existsSync('images')) {
         await mkdir('images');
       }
@@ -24,10 +25,15 @@ imageUpload.post('/', async (c) => {
       const filename = `${randomUUID()}.${ext}`;
 
       await writeFile(`./images/${filename}`, Buffer.from(buffer));
+      
       return c.text('Uploaded successfully!');
-    } catch (error: any) {
+
+    } 
+    
+    catch (error: any) {
       return c.json({ message: error.message }, 500);
     } 
+
   }
 
   return c.text('No image received.', 400); 

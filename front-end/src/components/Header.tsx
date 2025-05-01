@@ -8,11 +8,14 @@ export function Header() {
     const currentPath = location.pathname;
 
     function getPath(path:string) {
+        
         switch (path) {
             case '/dashboard':
                 return 'Dashboard'
             case '/products':
                 return 'Products'
+            case '/categories':
+                return 'Categories'
         }
 
         return ''

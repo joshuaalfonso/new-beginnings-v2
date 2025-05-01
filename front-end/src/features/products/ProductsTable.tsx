@@ -48,6 +48,7 @@ export function ProductsTable() {
                     <TableHeader>
                         <TableRow>
                             <TableHead></TableHead>
+                            <TableHead>Image</TableHead>
                             <TableHead className="w-[100px]">Product</TableHead>
                             <TableHead>Category</TableHead>
                             <TableHead>Description</TableHead>

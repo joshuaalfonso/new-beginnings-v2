@@ -30,16 +30,20 @@ import {
 } from "../../components/ui/select"
 
 
-const formSchema = z.object({
-    productId: z.number().nullable(),
-    productName: z.string().min(2),
-    categoryId: z.number().min(1, {
-        message: "This field is required."
-    }),
-    productDescription: z.string().min(5, {
-        message: "Username must be at least 5 characters.",
-    }),
-});
+// const formSchema = z.object({
+//     productId: z.number(),
+//     productName: z.string().min(2),
+//     categoryId: z.number().min(1, {
+//         message: "This field is required."
+//     }),
+//     productDescription: z.string().min(5, {
+//         message: "Username must be at least 5 characters.",
+//     }),
+//     imageUrl: z.string(),
+//     file: z.instanceof(File, {
+//         message: "A file is required."
+//     }).nullable()
+// });
 
 interface ProductFormProps {
     product?: ProductList
@@ -51,15 +55,35 @@ export const ProductForm =  ({ product = {} as ProductList, onCloseDialog }: Pro
     const { productId } = product;
 
     const isEditMode = Boolean(productId);
+
+    const formSchema = z.object({
+        productId: z.number(),
+        productName: z.string().min(2),
+        categoryId: z.number().min(1, {
+            message: "This field is required."
+        }),
+        productDescription: z.string().min(5, {
+            message: "Username must be at least 5 characters.",
+        }),
+        imageUrl: z.string(),
+        file: z.instanceof(File).optional().nullable()
+    }).refine((data) => {
+        return isEditMode || !!data.file;
+    }, {
+        message: "Image is required",
+        path: ["file"], 
+    });
     
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: isEditMode ? product : {
+        defaultValues: isEditMode ? {...product, file: null} : {
             productId: 0,
             productName: "",
             categoryId: 0,
             productDescription: "",
-        }
+            imageUrl: "",
+            file: null
+        }   
     })
 
     const { createProductMutation, isCreating } = useCreateProduct();
@@ -71,11 +95,30 @@ export const ProductForm =  ({ product = {} as ProductList, onCloseDialog }: Pro
     const { data: categories, isPending: isLoadingCategories, isError: categoriesError } = useCategories();
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // console.log(values)
+
+        const formData = new FormData();
+
+        const productData = {
+            productId: values.productId ?? '',
+            productName: values.productName,
+            categoryId: values.categoryId,
+            productDescription: values.productDescription,
+            imageUrl: values.imageUrl
+        };
+
+        formData.append('data', JSON.stringify(productData))
+
+        if (values.file) {
+            formData.append("image", values.file);
+        }
+
+        // formData.forEach((value, key) => {
+        //     console.log(key, value);
+        // });
 
         if (isEditMode) {
             updateProductMutation(  
-                values,
+                formData,
                 {
                     onSuccess: () => {
                         onCloseDialog();
@@ -84,7 +127,7 @@ export const ProductForm =  ({ product = {} as ProductList, onCloseDialog }: Pro
             )
         } else {
             createProductMutation(
-                values,
+                formData,
                 {
                     onSuccess: () => {
                         form.reset();
@@ -159,6 +202,44 @@ export const ProductForm =  ({ product = {} as ProductList, onCloseDialog }: Pro
                             <FormLabel>Description</FormLabel>
                             <FormControl>
                                 <Textarea placeholder="" {...field} tabIndex={-1} autoComplete="off"/>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="imageUrl"
+                    render={({ field }) => (
+                        <FormItem className="hidden">
+                            <FormLabel>Image Url</FormLabel>
+                            <FormControl>
+                                <Input placeholder=""  {...field} tabIndex={-1} autoComplete="off"/>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="file"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Image</FormLabel>
+                            <FormControl>
+                                <Input 
+                                    id="picture"  
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        field.onChange(file); // Pass the file to react-hook-form
+                                        console.log(form.getValues())
+                                    }} 
+                                    className="cursor-pointer"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

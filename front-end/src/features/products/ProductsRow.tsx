@@ -40,6 +40,14 @@ export const ProductRow: React.FC<ProductRowProps> = ({row, index}) => {
         <>
             <TableRow key={productId}>
                 <TableCell className="font-medium">{index + 1}</TableCell>
+                <TableCell>
+                    <img 
+                        src={`http://192.168.1.11:3000/images/${row.imageUrl}`} 
+                        alt="image" 
+                        
+                        className="h-10 w-15 object-cover"
+                    />
+                </TableCell>
                 <TableCell>{productName}</TableCell>
                 <TableCell>{productCategory}</TableCell>
                 <TableCell>{productDescription}</TableCell>
@@ -62,11 +70,13 @@ export const ProductRow: React.FC<ProductRowProps> = ({row, index}) => {
                     />
 
                     <DropdownMenu open={showDropdownMenu} onOpenChange={setShowDropdownMenu}>
+
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" size="icon">
                                 <Ellipsis />
                             </Button>
                         </DropdownMenuTrigger>
+
                         <DropdownMenuContent align="end">
 
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
@@ -90,6 +100,7 @@ export const ProductRow: React.FC<ProductRowProps> = ({row, index}) => {
                             </DropdownMenuItem>
 
                         </DropdownMenuContent>
+                        
                     </DropdownMenu>
                     
 
